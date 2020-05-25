@@ -1,0 +1,27 @@
+{
+  "name": "fullstackopen2020-graphql",
+  "version": "1.0.0",
+  "description": "An exercise project for Helsinki Uni course",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/saarikt1-study/fullstackopen2020-graphql.git"
+  },
+  "keywords": [
+    "graphql",
+    "fullstack"
+  ],
+  "author": "Tommi Saarikangas",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/saarikt1-study/fullstackopen2020-graphql/issues"
+  },
+  "homepage": "https://github.com/saarikt1-study/fullstackopen2020-graphql#readme",
+  "dependencies": {
+    "apollo-server": "^2.13.1",
+    "graphql": "^15.0.0"
+  }
+}
