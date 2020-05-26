@@ -112,7 +112,7 @@ const typeDefs = gql`
 
     editAuthor(
       name: String!
-      setBornTo: Int!
+      born: Int!
     ): Author
   }
 `
@@ -162,9 +162,10 @@ const resolvers = {
 
       authorToEdit = authors.find(a => a.name === args.name)
       authorToEdit = {
-        name: args.name,
-        born: args.setBornTo
+        ...authorToEdit,
+        born: args.born
       }
+      authors = authors.map(a => args.name === a.name ? authorToEdit : a)
       return authorToEdit
     }
   }
