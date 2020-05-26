@@ -101,7 +101,7 @@ const typeDefs = gql`
   type Book {
     title: String!
     published: Int!
-    author: Author!
+    author: String!
     genres: [String!]!
     id: ID!
   }
@@ -161,9 +161,25 @@ const resolvers = {
   },
 
   Mutation: {
-    addBook: (root, args) => {
-      const book = new Book({...args})
-      return book.save()
+    addBook: async (root, args) => {
+      // const authors = Author.find({})
+      // console.log('Authors: ', authors)
+      // if (!authors || !authors.map(a => a.name).includes(args.author)) {
+      //   const newAuthor = { 
+      //     name: args.author,
+      //     id: uuid(),
+      //     born: null
+      //   }
+      //   await newAuthor.save()
+      // } 
+
+      const book = new Book({
+         ...args,
+         id: uuid(),
+        //  author: Author.findOne({ name: args.author})
+      })
+      await book.save()
+      return book
       // const authorNames = authors.map(a => a.name)
       // if (!authorNames.includes(args.author)) {
       //   const newAuthor = { name: args.author, id: uuid() }
