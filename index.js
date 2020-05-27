@@ -101,7 +101,10 @@ const resolvers = {
   },
 
   Mutation: {
-    addBook: async (root, args) => {
+    addBook: async (root, args, context) => {
+      if (!context.currentUser) {
+        throw new UserInputError('No rights to add a book')
+      }
       const title = args.title
       const published = args.published
       const genres = args.genres
@@ -129,7 +132,11 @@ const resolvers = {
       return book
     },
 
-    editAuthor: async (root, args) => {
+    editAuthor: async (root, args, context) => {
+      if (!context.currentUser) {
+        throw new UserInputError('No rights to edit author')
+      }
+
       let author = await Author.findOne({ name: args.name })
       author.born = args.born
       try {
