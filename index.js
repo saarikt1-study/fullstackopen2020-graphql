@@ -52,7 +52,7 @@ const typeDefs = gql`
 
     editAuthor(
       name: String!
-      setBornTo: Int!
+      born: Int!
     ): Author
   }
 `
@@ -73,13 +73,6 @@ const resolvers = {
     }
   },
 
-  // Author: {
-  //   bookCount: (root) => {
-  //     const authorsBooks = books.filter(b => b.author === root.name)
-  //     return authorsBooks.length
-  //   }
-  // },
-
   Mutation: {
     addBook: async (root, args) => {
       const title = args.title
@@ -95,19 +88,10 @@ const resolvers = {
       return book
     },
 
-    editAuthor: (root, args) => {
-      const authorNames = authors.map(a => a.name)
-      if (!authorNames.includes(args.name)) {
-        return null
-      }
-
-      authorToEdit = authors.find(a => a.name === args.name)
-      authorToEdit = {
-        ...authorToEdit,
-        born: args.born
-      }
-      authors = authors.map(a => args.name === a.name ? authorToEdit : a)
-      return authorToEdit
+    editAuthor: async (root, args) => {
+      let author = await Author.findOne({ name: args.name })
+      author.born = args.born
+      await author.save()
     }
   }
 }
