@@ -83,7 +83,12 @@ const typeDefs = gql`
 
 const resolvers = {
   Query: {
-    allBooks: (root, args) => Book.find({}),
+    allBooks: async (root, args) => {
+      if (args.genre) {
+        return await Book.find({ genres: { $in: [args.genre]}})
+      }
+      return Book.find({})
+    },
     allAuthors: () => Author.find({}),
     bookCount: () => Book.collection.countDocuments(),
     authorCount: () => Author.collection.countDocuments(),
@@ -133,13 +138,12 @@ const resolvers = {
     },
 
     editAuthor: async (root, args, context) => {
-      if (!context.currentUser) {
-        throw new UserInputError('No rights to edit author')
-      }
-
       let author = await Author.findOne({ name: args.name })
       author.born = args.born
       try {
+        if (!context.currentUser) {
+          throw new UserInputError('No rights to edit author')
+        }
         await author.save()
       }
       catch (error) {
