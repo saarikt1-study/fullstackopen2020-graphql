@@ -21,7 +21,7 @@
   },
   "homepage": "https://github.com/saarikt1-study/fullstackopen2020-graphql#readme",
   "dependencies": {
-    "apollo-server": "^2.13.1",
+    "apollo-server": "^2.25.4",
     "dotenv": "^8.2.0",
     "graphql": "^15.0.0",
     "jsonwebtoken": "^8.5.1",
